@@ -33,32 +33,33 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKey(KeyCode.Return))
-        {
-            if (!dropped)
-            {
-                AudioController.Instance.PlaySingle(AudioController.Instance.openHole);
-                EngageFloorDrop();
-                ActiveFallZones();
-            }
-        }
+        //if(Input.GetKey(KeyCode.Return))
+        //{
+        //    if (!dropped)
+        //    {
+        //        AudioController.Instance.PlaySingle(AudioController.Instance.openHole);
+        //        EngageFloorDrop();
+        //        ActiveFallZones();
+        //    }
+        //}
+
         if(Input.GetKey(KeyCode.Space))
         {
             SceneManager.LoadScene("StartScene");
             Destroy(DataCollector.Instance.gameObject);
         }
 
-        if(fall)
-        {
-            fallSpeed += 10f * Time.deltaTime;
-            cameraRig.transform.position = new Vector3(0f, cameraRig.transform.position.y - fallSpeed * Time.deltaTime, 0f);
-            if(cameraRig.transform.position.y < -10)
-            {
-                AudioController.Instance.PlaySingle(AudioController.Instance.fall);
-                fall = false;
-                cameraRig.transform.position = new Vector3(0f, -10f, 0);
-            }
-        }
+        //if(fall)
+        //{
+        //    fallSpeed += 10f * Time.deltaTime;
+        //    cameraRig.transform.position = new Vector3(0f, cameraRig.transform.position.y - fallSpeed * Time.deltaTime, 0f);
+        //    if(cameraRig.transform.position.y < -10)
+        //    {
+        //        AudioController.Instance.PlaySingle(AudioController.Instance.fall);
+        //        fall = false;
+        //        cameraRig.transform.position = new Vector3(0f, -10f, 0);
+        //    }
+        //}
     }
     
     void EngageFloorDrop()
