@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4491776072054710}
   - component: {fileID: 33927461950320954}
   - component: {fileID: 23863432809203098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: archmodels87_042_003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4157718559250028}
   - component: {fileID: 33089146618157878}
   - component: {fileID: 23591804023410042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: archmodels87_042_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4500766890754416}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Whiteboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4275939377696692}
   - component: {fileID: 33225558899397264}
   - component: {fileID: 23805007251739554}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: archmodels87_042_004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4710863465496532}
   - component: {fileID: 33137055216359566}
   - component: {fileID: 23479430150951172}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: archmodels87_042_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,9 +139,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1336999878392880}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.894, y: 0.376, z: -0.517}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalPosition: {x: 0.132, y: 3.65, z: -2.957}
+  m_LocalScale: {x: 1.2448, y: 1.2448004, z: 1.2448004}
   m_Children:
   - {fileID: 4157718559250028}
   - {fileID: 4710863465496532}
@@ -149,7 +149,7 @@ Transform:
   - {fileID: 4275939377696692}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 180, z: 0}
 --- !u!4 &4710863465496532
 Transform:
   m_ObjectHideFlags: 1
@@ -283,7 +283,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: a13bec0fadcfa8543b75d9c32b6396d1, type: 3}
+  - {fileID: 2100000, guid: 3e844f5738d50f543bb72d000487d1a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
