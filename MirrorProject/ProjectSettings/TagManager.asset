@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - FallArea
+  - Character 1
+  - Character 2
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - 
   - 
   - Mirror
-  - 
+  - UnityChan
   - 
   - 
   - 
