@@ -876,7 +876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1190456497088832
 GameObject:
   m_ObjectHideFlags: 1
@@ -4562,7 +4562,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999328306912286}
   m_LocalRotation: {x: 0.47191933, y: -0.5467816, z: -0.45703864, w: 0.51907396}
-  m_LocalPosition: {x: 0.003, y: -0.044, z: -0.121}
+  m_LocalPosition: {x: 0.005, y: -0.051, z: -0.173}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4628064868233018}
@@ -7989,8 +7989,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.3874133, z: 1}
-  m_Center: {x: 0, y: 0.69181, z: 0}
+  m_Size: {x: 1, y: 1.5324166, z: 1}
+  m_Center: {x: 0, y: 0.7643117, z: 0}
 --- !u!81 &81930936827349302
 AudioListener:
   m_ObjectHideFlags: 1
