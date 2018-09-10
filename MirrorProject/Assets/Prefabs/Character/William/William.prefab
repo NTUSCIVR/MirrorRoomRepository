@@ -1152,7 +1152,7 @@ GameObject:
   - component: {fileID: 114839753361915666}
   m_Layer: 0
   m_Name: william
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2045,6 +2045,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4927749085456366}
+  - component: {fileID: 65182331604343998}
   m_Layer: 0
   m_Name: William
   m_TagString: Untagged
@@ -4423,6 +4424,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1046380482874702}
   m_Mesh: {fileID: 4300018, guid: 6c0ce935a56dda343935b1f22cac2979, type: 3}
+--- !u!65 &65182331604343998
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1952195396074216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.5949566, z: 1}
+  m_Center: {x: 0, y: 0.80480564, z: 0}
 --- !u!81 &81863058479864464
 AudioListener:
   m_ObjectHideFlags: 1

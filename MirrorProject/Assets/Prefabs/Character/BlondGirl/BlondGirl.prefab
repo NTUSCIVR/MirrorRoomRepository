@@ -337,6 +337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4199353987532276}
+  - component: {fileID: 65424370246202770}
   m_Layer: 0
   m_Name: BlondGirl
   m_TagString: Untagged
@@ -1071,7 +1072,7 @@ GameObject:
   - component: {fileID: 114293859124438960}
   m_Layer: 0
   m_Name: 01_tricia_v001
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2406,8 +2407,8 @@ Transform:
   m_LocalPosition: {x: 0.762, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4490249820748980}
   - {fileID: 4593128626057538}
+  - {fileID: 4490249820748980}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2948,7 +2949,7 @@ Transform:
   - {fileID: 4735557002633836}
   - {fileID: 4869566586230938}
   m_Father: {fileID: 4199353987532276}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4492392650327352
 Transform:
@@ -3127,7 +3128,7 @@ Transform:
   m_GameObject: {fileID: 1465098996783882}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.000040114, y: -0.01, z: -0.0029355}
-  m_LocalScale: {x: 0.9307281, y: 0.9307281, z: 0.9307281}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4107684462525510}
   - {fileID: 4416953687932534}
@@ -3142,7 +3143,7 @@ Transform:
   - {fileID: 4149781525919598}
   - {fileID: 4751348944942500}
   m_Father: {fileID: 4199353987532276}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4593264980940226
 Transform:
@@ -4001,6 +4002,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1538617495471978}
   m_Mesh: {fileID: 0}
+--- !u!65 &65424370246202770
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1181242026233654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.4760556, z: 1}
+  m_Center: {x: 0, y: 0.7406883, z: -0}
 --- !u!81 &81324673371059320
 AudioListener:
   m_ObjectHideFlags: 1
