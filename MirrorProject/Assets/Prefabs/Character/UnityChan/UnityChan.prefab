@@ -876,7 +876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1190456497088832
 GameObject:
   m_ObjectHideFlags: 1
@@ -4464,7 +4464,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1376514378367440}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.023821518, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4473,7 +4473,7 @@ Transform:
   - {fileID: 4115919345232800}
   m_Father: {fileID: 4911206651060316}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4186497151324694
 Transform:
   m_ObjectHideFlags: 1
@@ -7110,7 +7110,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1190451694089648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.762, y: 0, z: 0}
+  m_LocalPosition: {x: -0.223, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4052730653835298}
@@ -7989,8 +7989,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.5324166, z: 1}
-  m_Center: {x: 0, y: 0.7643117, z: 0}
+  m_Size: {x: 1, y: 1.3867412, z: 1}
+  m_Center: {x: 0, y: 0.69147396, z: 0}
 --- !u!81 &81930936827349302
 AudioListener:
   m_ObjectHideFlags: 1
@@ -8366,14 +8366,14 @@ MonoBehaviour:
   size: 0
   color: {r: 0, g: 1, b: 1, a: 1}
   vertices:
-  - {x: 1.9999994, y: 0.01, z: -1.0500001}
-  - {x: -1.9999994, y: 0.01, z: -1.0500001}
-  - {x: -1.9999994, y: 0.01, z: 1.0500001}
-  - {x: 1.9999994, y: 0.01, z: 1.0500001}
-  - {x: 2.1499994, y: 0.01, z: -1.2}
-  - {x: -2.1499994, y: 0.01, z: -1.2}
-  - {x: -2.1499994, y: 0.01, z: 1.2}
-  - {x: 2.1499994, y: 0.01, z: 1.2}
+  - {x: 1.5499997, y: 0.01, z: -0.85000026}
+  - {x: -1.5499997, y: 0.01, z: -0.85000026}
+  - {x: -1.5499997, y: 0.01, z: 0.85000026}
+  - {x: 1.5499997, y: 0.01, z: 0.85000026}
+  - {x: 1.6999997, y: 0.01, z: -1.0000002}
+  - {x: -1.6999997, y: 0.01, z: -1.0000002}
+  - {x: -1.6999997, y: 0.01, z: 1.0000002}
+  - {x: 1.6999997, y: 0.01, z: 1.0000002}
 --- !u!124 &124245128608723330
 Behaviour:
   m_ObjectHideFlags: 1
