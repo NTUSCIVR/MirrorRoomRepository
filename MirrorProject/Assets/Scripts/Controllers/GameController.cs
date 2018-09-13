@@ -9,9 +9,13 @@ public class GameController : MonoBehaviour {
     public static GameController Instance;
 
     public List<GameObject> playerModels;
-    int index;
-    int prevIndex;
+    int modelIndex;
+    int modelPrevIndex;
     float userHeight = 1.8f;
+
+    public List<GameObject> mirrors;
+    int mirrorIndex;
+    int mirrorPrevIndex;
 
     string userID;
 
@@ -28,9 +32,12 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        index = 0;
-        playerModels[index].SetActive(true);
-        ScaleModel(playerModels[index]);
+        modelIndex = 0;
+        playerModels[modelIndex].SetActive(true);
+        ScaleModel(playerModels[modelIndex]);
+
+        mirrorIndex = 0;
+        mirrors[mirrorIndex].SetActive(true);
     }
 	
 	// Update is called once per frame
@@ -49,21 +56,36 @@ public class GameController : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
-            IncreaseIndex();
+            IncreaseModelIndex();
         }
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            DecreaseIndex();
+            DecreaseModelIndex();
+        }
+
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            IncreaseMirrorIndex();
+        }
+        if(Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            DecreaseMirrorIndex();
         }
     }
 
     void ActivateModel()
     {
         //set previous model to inactive
-        playerModels[prevIndex].SetActive(false);
+        playerModels[modelPrevIndex].SetActive(false);
         //set current model to active
-        playerModels[index].SetActive(true);
-        ScaleModel(playerModels[index]);
+        playerModels[modelIndex].SetActive(true);
+        ScaleModel(playerModels[modelIndex]);
+    }
+
+    void ActivateMirror()
+    {
+        mirrors[mirrorPrevIndex].SetActive(false);
+        mirrors[mirrorIndex].SetActive(true);
     }
 
     void CalibrateHeight()
@@ -79,7 +101,7 @@ public class GameController : MonoBehaviour {
                 break;
             }
         }
-        ScaleModel(playerModels[index]);
+        ScaleModel(playerModels[modelIndex]);
     }
 
     void ScaleModel(GameObject model)
@@ -105,25 +127,47 @@ public class GameController : MonoBehaviour {
         return null;
     }
 
-    public void IncreaseIndex()
+    public void IncreaseModelIndex()
     {
-        prevIndex = index;
-        ++index;
-        if(index >= playerModels.Count)
+        modelPrevIndex = modelIndex;
+        ++modelIndex;
+        if(modelIndex >= playerModels.Count)
         {
-            index = 0;
+            modelIndex = 0;
         }
         ActivateModel();
     }
 
-    public void DecreaseIndex()
+    public void DecreaseModelIndex()
     {
-        prevIndex = index;
-        --index;
-        if(index < 0)
+        modelPrevIndex = modelIndex;
+        --modelIndex;
+        if(modelIndex < 0)
         {
-            index = playerModels.Count - 1;
+            modelIndex = playerModels.Count - 1;
         }
         ActivateModel();
+    }
+
+    public void IncreaseMirrorIndex()
+    {
+        mirrorPrevIndex = mirrorIndex;
+        ++mirrorIndex;
+        if (mirrorIndex >= mirrors.Count)
+        {
+            mirrorIndex = 0;
+        }
+        ActivateMirror();
+    }
+
+    public void DecreaseMirrorIndex()
+    {
+        mirrorPrevIndex = mirrorIndex;
+        --mirrorIndex;
+        if(mirrorIndex < 0)
+        {
+            mirrorIndex = mirrors.Count - 1;
+        }
+        ActivateMirror();
     }
 }
