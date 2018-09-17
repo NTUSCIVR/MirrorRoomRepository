@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using ItSeez3D.AvatarSdk.Core;
+using UnityEngine.UI;
 using UnityEngine;
 
 //the interface to use the avatarSDK
@@ -20,6 +21,8 @@ public class AvatarSDKController : MonoBehaviour {
     public int bodyIndex = 0;
     //list of all prefabs for body
     public List<GameObject> bodies;
+
+    public Text progressText;
 
     //instance of IAvatarProvider, call dispose when monobehavior destruct
     protected IAvatarProvider avatarProvider = null;
@@ -42,6 +45,7 @@ public class AvatarSDKController : MonoBehaviour {
 #endif
 
         StartCoroutine(Initialize());
+        GenerateModel();
     }
 
     // Update is called once per frame
@@ -57,12 +61,15 @@ public class AvatarSDKController : MonoBehaviour {
         yield return Await(avatarProvider.InitializeAsync());
     }
 
-    protected virtual IEnumerator GenerateModel()
+    public void GenerateModel()
     {
-        if (string.IsNullOrEmpty(DataCollector.Instance.imagePath))
-            yield break;
         byte[] bytes = File.ReadAllBytes(DataCollector.Instance.imagePath);
-        yield return StartCoroutine(GenerateHead(bytes, pipelineType));
+        StartCoroutine(GenerateHead(bytes, pipelineType));
+    }
+
+    protected virtual IEnumerator GenerateAvatarFunc(byte[] photoBytes)
+    {
+        yield return StartCoroutine(GenerateHead(photoBytes, pipelineType));
     }
 
     //helper function to yield multiple async requests in coroutine
@@ -70,19 +77,28 @@ public class AvatarSDKController : MonoBehaviour {
     {
         foreach (var r in requests)
         {
-            while (r.IsDone)
+            while (!r.IsDone)
             {
                 //yield null to wait for next frame, to not block main thread
                 yield return null;
 
                 //if got error, do something
-                if (!r.IsError)
+                if (r.IsError)
                 {
                     //log error for now
                     Debug.LogError(r.ErrorMessage);
                     throw new System.Exception(r.ErrorMessage);
                     //to do
                 }
+
+                var progress = new List<string>();
+                AsyncRequest request = r;
+                while (request != null)
+                {
+                    progress.Add(string.Format("{0}: {1}%", request.State, request.ProgressPercent.ToString("0.0")));
+                    request = request.CurrentSubrequest;
+                }
+                progressText.text = string.Join("\n", progress.ToArray());
             }
         }
     }
@@ -93,18 +109,22 @@ public class AvatarSDKController : MonoBehaviour {
     {
         //choose default set of resources to generate
         var resourcesRequest = avatarProvider.ResourceManager.GetResourcesAsync(AvatarResourcesSubset.DEFAULT, pipeline);
+        Debug.Log("Requesting resources...");
         yield return Await(resourcesRequest);
 
         //generate avatar from photo and get its code
         var initializeRequest = avatarProvider.InitializeAvatarAsync(photoBytes, "name", "description", pipeline, resourcesRequest.Result);
+        Debug.Log("Initlialize request...");
         yield return Await(initializeRequest);
         string avatarCode = initializeRequest.Result;
 
         var calculateRequest = avatarProvider.StartAndAwaitAvatarCalculationAsync(avatarCode);
+        Debug.Log("Calculate Request");
         yield return Await(calculateRequest);
 
         //get the texture mesh of the head
         var avatarHeadRequest = avatarProvider.GetHeadMeshAsync(avatarCode, false);
+        Debug.Log("Head mesh request...");
         yield return Await(avatarHeadRequest);
         TexturedMesh headTexturedMesh = avatarHeadRequest.Result;
 
@@ -112,6 +132,7 @@ public class AvatarSDKController : MonoBehaviour {
         TexturedMesh haircutTexturedMesh = null;
         //get identities of all haircuts available for the generated avatar
         var haircutsIdRequest = avatarProvider.GetHaircutsIdAsync(avatarCode);
+        Debug.Log("Hair mesh selection request...");
         yield return Await(haircutsIdRequest);
 
         //randomly select a haircut
@@ -123,6 +144,7 @@ public class AvatarSDKController : MonoBehaviour {
 
             //load TexturedMesh for the chosen haircut 
             var haircutRequest = avatarProvider.GetHaircutMeshAsync(avatarCode, haircut);
+            Debug.Log("Hair mesh request...");
             yield return Await(haircutRequest);
             haircutTexturedMesh = haircutRequest.Result;
         }
@@ -133,7 +155,28 @@ public class AvatarSDKController : MonoBehaviour {
     protected virtual void CreateModel(TexturedMesh headMesh, TexturedMesh haircutMesh)
     {
         //create the avatar object in the scene
-        var avatarObject = new GameObject("ItSeez3D Avatar");
+        var avatarObject = new GameObject("ItSeez3D Avatar");// create head object in the scene
+
+        Debug.LogFormat("Generating Unity mesh object for head...");
+        var headObject = new GameObject("HeadObject");
+        var headMeshRenderer = headObject.AddComponent<SkinnedMeshRenderer>();
+        headMeshRenderer.sharedMesh = headMesh.mesh;
+        var headMaterial = new Material(Shader.Find("AvatarUnlitShader"));
+        headMaterial.mainTexture = headMesh.texture;
+        headMeshRenderer.material = headMaterial;
+        headObject.transform.SetParent(avatarObject.transform);
+
+        if (haircutMesh != null)
+        {
+            // create haircut object in the scene
+            var haircutObject = new GameObject("HaircutObject");
+            var haircutMeshRenderer = haircutObject.AddComponent<SkinnedMeshRenderer>();
+            haircutMeshRenderer.sharedMesh = haircutMesh.mesh;
+            var haircutMaterial = new Material(Shader.Find("AvatarUnlitHairShader"));
+            haircutMaterial.mainTexture = haircutMesh.texture;
+            haircutMeshRenderer.material = haircutMaterial;
+            haircutObject.transform.SetParent(avatarObject.transform);
+        }
     }
 
     private void OnDestroy()

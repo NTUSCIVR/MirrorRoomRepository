@@ -203,11 +203,13 @@ namespace ItSeez3D.AvatarSdkSamples.Core
 		{
 			// Choose default set of resources to generate
 			var resourcesRequest = avatarProvider.ResourceManager.GetResourcesAsync(AvatarResourcesSubset.DEFAULT, pipelineType);
-			yield return Await(resourcesRequest);
+            Debug.Log("Requesting resources...");
+            yield return Await(resourcesRequest);
 			
 			// generate avatar from the photo and get its code in the Result of request
 			var initializeRequest = avatarProvider.InitializeAvatarAsync(photoBytes, "name", "description", pipeline, resourcesRequest.Result);
-			yield return Await(initializeRequest);
+            Debug.Log("Initlialize request...");
+            yield return Await(initializeRequest);
 			string avatarCode = initializeRequest.Result;
 
 			StartCoroutine(SampleUtils.DisplayPhotoPreview(avatarCode, photoPreview));
