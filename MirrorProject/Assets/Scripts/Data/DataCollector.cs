@@ -7,15 +7,29 @@ using UnityEngine.UI;
 
 public class DataCollector : MonoBehaviour {
 
+    [Tooltip("InputField reference to allow user to key in ID")]
     public InputField inputField;
+    [Tooltip("ID of the current user for use in other scene, no need to touch")]
     public string dataID = "";
     public static DataCollector Instance;
 
+    [Tooltip("Boolean to know if DataCollector should start recording")]
     public bool startRecording = false;
+    [Tooltip("Intervals between recording of data in seconds")]
     public float dataRecordInterval = 1f;
     float time = 0f;
+
+    string currentFilePath;
     
+    [Tooltip("GameObject reference to camera rig in main scene to access attributes for recording")]
     public GameObject user;
+
+    [Tooltip("Selected user image filepath")]
+    public string imagePath;
+    [Tooltip("Selected body index")]
+    public int bodyIndex;
+    [Tooltip("Selected hair index")]
+    public int hairIndex;
 
     private void Awake()
     {
@@ -36,7 +50,7 @@ public class DataCollector : MonoBehaviour {
             if (time > dataRecordInterval)
             {
                 time = 0;
-                StreamWriter sw = File.AppendText(GetPath());
+                StreamWriter sw = File.AppendText(currentFilePath + "/" + dataID + ".csv");
                 sw.WriteLine(GenerateData());
                 sw.Close();
             }
@@ -47,7 +61,7 @@ public class DataCollector : MonoBehaviour {
     {
         Debug.Log("change scene");
         dataID = inputField.text;
-        CreateCSV();
+        CreateDataElement();
         startRecording = true;
         SceneManager.LoadScene("MainScene");
     }
@@ -58,6 +72,7 @@ public class DataCollector : MonoBehaviour {
         inputField.onEndEdit.AddListener(delegate { OnInputSubmitCallback(); });
     }
 
+    //this generate in a string format for time, position and rotation
     string GenerateData()
     {
         string data = "";
@@ -77,30 +92,59 @@ public class DataCollector : MonoBehaviour {
         return data;
     }
 
+    //returns a path for the current dataID, will return a duplicate path if path exists already
     private string GetPath()
     {
 #if UNITY_EDITOR
-        return Application.dataPath + "/Data/" + dataID + ".csv";
-#elif UNITY_ANDROID
-        return Application.persistentDataPath+dataID + ".csv";
-#elif UNITY_IPHONE
-        return Application.persistentDataPath+"/"+dataID + ".csv";
+        string filePath = Application.dataPath + "/Data/" + dataID;
+        int duplicateCounts = 0;
+        while(true)
+        {
+            if (Directory.Exists(filePath))
+            {
+                ++duplicateCounts;
+                filePath = Application.dataPath + "/Data/" + dataID + "(" + duplicateCounts.ToString() + ")";
+            }
+            else
+                break;
+        }
+        return filePath;
 #else
-        return Application.dataPath +"/"+dataID + ".csv";
+        string filePath = Application.dataPath + "/Data/" + dataID;
+        int duplicateCounts = 0;
+        while(true)
+        {
+            if (File.Exists(filePath))
+            {
+                ++duplicateCounts;
+                filePath = Application.dataPath + "/Data/" + dataID + "(" + duplicateCounts.ToString() + ")";
+            }
+            else
+                break;
+        }
+        return filePath;
 #endif
     }
 
-    void CreateCSV()
+    //create a folder with the csv inside it
+    void CreateDataElement()
     {
-        if(File.Exists(GetPath()))
-        {
-            File.Delete(GetPath());
-        }
-        StreamWriter output = System.IO.File.CreateText(GetPath());
+        currentFilePath = GetPath();
+        Directory.CreateDirectory(currentFilePath);
+        //in case file is unable to be accessed
+        File.SetAttributes(currentFilePath, FileAttributes.Normal);
+        CreateCSV(currentFilePath);
+    }
+
+    //create a csv file with dataID name in directory provided
+    void CreateCSV(string filePath)
+    {
+        StreamWriter output = System.IO.File.CreateText(filePath + "/" + dataID + ".csv");
         output.WriteLine("Time, Position, Rotation");
         output.Close();
     }
 
+    //change all the letters in a string to something else
     string ChangeLetters(string str, char letter, char toBeLetter)
     {
         char[] ret = str.ToCharArray();

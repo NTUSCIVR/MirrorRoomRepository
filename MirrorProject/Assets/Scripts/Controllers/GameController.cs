@@ -8,11 +8,13 @@ public class GameController : MonoBehaviour {
     
     public static GameController Instance;
 
+    [Tooltip("Place all existing objects of player models in this list to enable swapping")]
     public List<GameObject> playerModels;
     int modelIndex;
     int modelPrevIndex;
     float userHeight = 1.8f;
 
+    [Tooltip("Place all existing mirrors in this list to enable swapping")]
     public List<GameObject> mirrors;
     int mirrorIndex;
     int mirrorPrevIndex;
