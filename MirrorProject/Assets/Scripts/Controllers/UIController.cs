@@ -86,7 +86,7 @@ public class UIController : MonoBehaviour {
                 //create a square rect from the landscape image from the center
                 Vector2 min = new Vector2(horizontalOffset, 0);
                 Vector2 max = new Vector2(texture.width - horizontalOffset, texture.height);
-                sprite = Sprite.Create(texture, new Rect(min, max), Vector2.zero);
+                sprite = Sprite.Create(texture, new Rect(min, max - min), Vector2.zero);
             }
             else if (texture.height > texture.width)
             {
@@ -95,7 +95,7 @@ public class UIController : MonoBehaviour {
                 //create a square rect from the portrait image from the center
                 Vector2 min = new Vector2(0, verticalOffset);
                 Vector2 max = new Vector2(texture.width, texture.height - verticalOffset);
-                sprite = Sprite.Create(texture, new Rect(min, max), Vector2.zero);
+                sprite = Sprite.Create(texture, new Rect(min, max - min), Vector2.zero);
             }
             else
             {
