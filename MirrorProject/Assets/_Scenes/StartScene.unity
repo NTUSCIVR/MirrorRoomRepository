@@ -1649,6 +1649,9 @@ MonoBehaviour:
   startRecording: 0
   dataRecordInterval: 0.5
   user: {fileID: 0}
+  imagePath: 
+  bodyIndex: 0
+  hairIndex: 0
 --- !u!1 &1487574341
 GameObject:
   m_ObjectHideFlags: 0

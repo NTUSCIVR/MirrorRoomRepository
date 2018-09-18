@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using ItSeez3D.AvatarSdk.Core;
+using ItSeez3D.AvatarSdkSamples.Core;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -45,7 +46,22 @@ public class AvatarSDKController : MonoBehaviour {
 #endif
 
         StartCoroutine(Initialize());
-        GenerateModel();
+        if(DataCollector.Instance != null)
+        {
+            //generate the model only if imagepath is available
+            GenerateModel();
+        }
+        else
+        {
+            //remove all the headless bodies
+            foreach(GameObject model in GameController.Instance.playerModels)
+            {
+                if (model.GetComponentInChildren<BodyAttachment>())
+                {
+                    //GameController.Instance.playerModels.Remove(model);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -165,6 +181,7 @@ public class AvatarSDKController : MonoBehaviour {
         headMaterial.mainTexture = headMesh.texture;
         headMeshRenderer.material = headMaterial;
         headObject.transform.SetParent(avatarObject.transform);
+        headObject.GetComponent<SkinnedMeshRenderer>().updateWhenOffscreen = true;
 
         if (haircutMesh != null)
         {
@@ -176,6 +193,19 @@ public class AvatarSDKController : MonoBehaviour {
             haircutMaterial.mainTexture = haircutMesh.texture;
             haircutMeshRenderer.material = haircutMaterial;
             haircutObject.transform.SetParent(avatarObject.transform);
+            haircutObject.GetComponent<SkinnedMeshRenderer>().updateWhenOffscreen = true;
+        }
+
+        //find all the headless bodies that are in the scene
+        foreach (GameObject body in GameController.Instance.playerModels)
+        {
+            if (body.GetComponentInChildren<BodyAttachment>())
+            {
+                //add head to the body
+                body.GetComponentInChildren<BodyAttachment>().AttachHeadToBody(Instantiate(avatarObject));
+                body.GetComponentInChildren<BodyAttachment>().RebuildBindpose();
+                Destroy(avatarObject);
+            }
         }
     }
 
