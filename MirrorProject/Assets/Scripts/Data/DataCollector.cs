@@ -26,8 +26,6 @@ public class DataCollector : MonoBehaviour {
 
     [Tooltip("Selected user image filepath")]
     public string imagePath;
-    [Tooltip("Selected body index")]
-    public int bodyIndex;
     [Tooltip("Selected hair index")]
     public int hairIndex;
 
@@ -57,7 +55,7 @@ public class DataCollector : MonoBehaviour {
         }
 	}
 
-    void OnInputSubmitCallback()
+    public void Submit()
     {
         Debug.Log("change scene");
         dataID = inputField.text;
@@ -69,7 +67,6 @@ public class DataCollector : MonoBehaviour {
     void AssignInputField()
     {
         inputField = FindObjectOfType<InputField>();
-        inputField.onEndEdit.AddListener(delegate { OnInputSubmitCallback(); });
     }
 
     //this generate in a string format for time, position and rotation
