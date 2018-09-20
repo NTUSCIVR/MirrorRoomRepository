@@ -155,8 +155,7 @@ public class AvatarSDKController : MonoBehaviour {
         var haircuts = haircutsIdRequest.Result;
         if (haircuts != null && haircuts.Length > 0)
         {
-            var haircutIdx = UnityEngine.Random.Range(0, haircuts.Length);
-            var haircut = haircuts[haircutIdx];
+            var haircut = haircuts[DataCollector.Instance.hairIndex];
 
             //load TexturedMesh for the chosen haircut 
             var haircutRequest = avatarProvider.GetHaircutMeshAsync(avatarCode, haircut);
@@ -183,18 +182,14 @@ public class AvatarSDKController : MonoBehaviour {
         headObject.transform.SetParent(avatarObject.transform);
         headObject.GetComponent<SkinnedMeshRenderer>().updateWhenOffscreen = true;
 
-        if (haircutMesh != null)
-        {
-            // create haircut object in the scene
-            var haircutObject = new GameObject("HaircutObject");
-            var haircutMeshRenderer = haircutObject.AddComponent<SkinnedMeshRenderer>();
-            haircutMeshRenderer.sharedMesh = haircutMesh.mesh;
-            var haircutMaterial = new Material(Shader.Find("AvatarUnlitHairShader"));
-            haircutMaterial.mainTexture = haircutMesh.texture;
-            haircutMeshRenderer.material = haircutMaterial;
-            haircutObject.transform.SetParent(avatarObject.transform);
-            haircutObject.GetComponent<SkinnedMeshRenderer>().updateWhenOffscreen = true;
-        }
+        var meshObject = new GameObject("HaircutObject");
+        var meshRenderer = meshObject.AddComponent<SkinnedMeshRenderer>();
+        meshRenderer.sharedMesh = haircutMesh.mesh;
+        var material = new Material(Shader.Find("AvatarUnlitHairShader"));
+        material.mainTexture = haircutMesh.texture;
+        meshRenderer.material = material;
+        meshObject.transform.SetParent(avatarObject.transform);
+        meshObject.GetComponent<SkinnedMeshRenderer>().updateWhenOffscreen = true;
 
         //find all the headless bodies that are in the scene
         foreach (GameObject body in GameController.Instance.playerModels)

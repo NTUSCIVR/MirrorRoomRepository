@@ -19,6 +19,9 @@ public class GameController : MonoBehaviour {
     int mirrorIndex;
     int mirrorPrevIndex;
 
+    [Tooltip("Place all types of hair that is used with avatarSDK")]
+    public List<GameObject> hairs;
+
     string userID;
 
     private void Awake()

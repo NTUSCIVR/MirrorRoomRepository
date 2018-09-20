@@ -177,13 +177,22 @@ public class UIController : MonoBehaviour {
         DataCollector.Instance.imagePath = userImagesDir + "/" + btn.GetComponentInChildren<Text>().text;
         if (!headSelected)
             headSelected = true;
-        headText.GetComponent<Text>().text = "Image selected for face is " + DataCollector.Instance.imagePath;
+        headText.GetComponent<Text>().text = "Image selected for face is " + btn.GetComponentInChildren<Text>().text;
         headText.GetComponent<Text>().color = Color.green;
     }
 
     public void OnHairSelect(GameObject btn)
     {
-        DataCollector.Instance.hairIndex = int.Parse(btn.GetComponentInChildren<Text>().text);
+        string hairName = "";
+        string fileName = btn.GetComponentInChildren<Text>().text;
+        foreach (char c in fileName)
+        {
+            if (c == '.')
+                break;
+            else
+                hairName += c;
+        }
+        DataCollector.Instance.hairIndex = int.Parse(hairName);
         if (!hairSelected)
             hairSelected = true;
         hairText.GetComponent<Text>().text = "Hair selected index is " + DataCollector.Instance.hairIndex;
