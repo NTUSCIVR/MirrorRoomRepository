@@ -92,9 +92,9 @@ public class DataCollector : MonoBehaviour {
     //returns a path for the current dataID, will return a duplicate path if path exists already
     private string GetPath()
     {
-#if UNITY_EDITOR
         string filePath = Application.dataPath + "/Data/" + dataID;
         int duplicateCounts = 0;
+        //checks for duplicate, if got duplicate, put a number clone thing beside the name
         while(true)
         {
             if (Directory.Exists(filePath))
@@ -106,21 +106,6 @@ public class DataCollector : MonoBehaviour {
                 break;
         }
         return filePath;
-#else
-        string filePath = Application.dataPath + "/Data/" + dataID;
-        int duplicateCounts = 0;
-        while(true)
-        {
-            if (File.Exists(filePath))
-            {
-                ++duplicateCounts;
-                filePath = Application.dataPath + "/Data/" + dataID + "(" + duplicateCounts.ToString() + ")";
-            }
-            else
-                break;
-        }
-        return filePath;
-#endif
     }
 
     //create a folder with the csv inside it

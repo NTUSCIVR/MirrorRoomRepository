@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//not used legacy code
 public class MirrorOffset : MonoBehaviour {
 
     public enum Directions { X, Y, Z};

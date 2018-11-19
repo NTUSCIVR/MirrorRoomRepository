@@ -10,15 +10,21 @@ public class GameController : MonoBehaviour {
 
     [Tooltip("Place all existing objects of player models in this list to enable swapping")]
     public List<GameObject> playerModels;
+    //the current index of the used model
     int modelIndex;
+    //the previous index
     int modelPrevIndex;
+    //the current height of the user, can be calibrated to adjust the height of hte model
     float userHeight = 1.8f;
 
     [Tooltip("Place all existing mirrors in this list to enable swapping")]
     public List<GameObject> mirrors;
+    //the current mirror being used
     int mirrorIndex;
+    //the previous mirror
     int mirrorPrevIndex;
 
+    //not used as unable to used a different hair on the model
     [Tooltip("Place all types of hair that is used with avatarSDK")]
     public List<GameObject> hairs;
 
@@ -48,30 +54,37 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        //restarts to the start scene
         if(Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene("StartScene");
+            //start scene will create another datacollector
             Destroy(DataCollector.Instance.gameObject);
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            //change height to the current headset level
             CalibrateHeight();
         }
 
+        //increase model index
         if(Input.GetKeyDown(KeyCode.RightArrow))
         {
             IncreaseModelIndex();
         }
+        //decrease model index
         if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             DecreaseModelIndex();
         }
 
+        //increase mirror index
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             IncreaseMirrorIndex();
         }
+        //decrease mirror index
         if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             DecreaseMirrorIndex();
@@ -84,12 +97,15 @@ public class GameController : MonoBehaviour {
         playerModels[modelPrevIndex].SetActive(false);
         //set current model to active
         playerModels[modelIndex].SetActive(true);
+        //update model to fit current height
         ScaleModel(playerModels[modelIndex]);
     }
 
     void ActivateMirror()
     {
+        //deactivate previous mirror
         mirrors[mirrorPrevIndex].SetActive(false);
+        //activate current mirror
         mirrors[mirrorIndex].SetActive(true);
     }
 
@@ -106,6 +122,7 @@ public class GameController : MonoBehaviour {
                 break;
             }
         }
+        //scale the model when calibrated height
         ScaleModel(playerModels[modelIndex]);
     }
 
@@ -114,6 +131,8 @@ public class GameController : MonoBehaviour {
         //the model itself
         GameObject go = GetModelObject(model);
 
+        //all models should have a box collider for how large it is
+        //multiplying extends by 2 give me the height of the model
         float modelHeight = model.GetComponent<BoxCollider>().bounds.extents.y * 2;
         //get the scale needed
         float ratio = userHeight / modelHeight;

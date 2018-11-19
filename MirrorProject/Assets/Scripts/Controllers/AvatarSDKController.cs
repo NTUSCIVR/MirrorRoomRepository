@@ -151,7 +151,7 @@ public class AvatarSDKController : MonoBehaviour {
         Debug.Log("Hair mesh selection request...");
         yield return Await(haircutsIdRequest);
 
-        //randomly select a haircut
+        //generate the selected hair cut
         var haircuts = haircutsIdRequest.Result;
         if (haircuts != null && haircuts.Length > 0)
         {

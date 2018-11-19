@@ -37,13 +37,9 @@ public class UIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-#if UNITY_EDITOR
         userImagesDir = Application.dataPath + "/UserPhotos";
         hairPhotosDir = Application.dataPath + "/Textures/Hair";
-#else
-        userImagesDir = Application.dataPath + "/UserPhotos";
-        hairPhotosDir = Application.dataPath + "/Hair";
-#endif
+        //put images of all the hair or userphotos in the scrollview
         PopulateScrollview();
     }
 	
@@ -172,19 +168,24 @@ public class UIController : MonoBehaviour {
         }
     }
 
+    //callback for the head button
     public void OnHeadSelect(GameObject btn)
     {
+        //tell datacollector which image was selected
         DataCollector.Instance.imagePath = userImagesDir + "/" + btn.GetComponentInChildren<Text>().text;
         if (!headSelected)
             headSelected = true;
+        //some ui for the user to know what was selected
         headText.GetComponent<Text>().text = "Image selected for face is " + btn.GetComponentInChildren<Text>().text;
         headText.GetComponent<Text>().color = Color.green;
     }
 
+    //callback for hair button
     public void OnHairSelect(GameObject btn)
     {
         string hairName = "";
         string fileName = btn.GetComponentInChildren<Text>().text;
+        //get the string portion of the hair
         foreach (char c in fileName)
         {
             if (c == '.')
@@ -192,22 +193,28 @@ public class UIController : MonoBehaviour {
             else
                 hairName += c;
         }
+        //get hair index from the btn
         DataCollector.Instance.hairIndex = int.Parse(hairName);
         if (!hairSelected)
             hairSelected = true;
+        //some ui for the user to see what hair is selected
         hairText.GetComponent<Text>().text = "Hair selected index is " + DataCollector.Instance.hairIndex;
         hairText.GetComponent<Text>().color = Color.green;
     }
 
+    //to swap to head scrollview
     public void OnHeadButtonPressed()
     {
         type = SELECTION_TYPE.HEAD;
+        //populate scrollview with user photos for selection
         PopulateScrollview();
     }
 
+    //to swap to the hair scrollview
     public void OnHairButtonPressed()
     {
         type = SELECTION_TYPE.HAIR;
+        //populate all the scrollview  with images of the hair
         PopulateScrollview();
     }
 
