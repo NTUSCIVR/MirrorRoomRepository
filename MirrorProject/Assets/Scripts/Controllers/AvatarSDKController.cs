@@ -54,13 +54,13 @@ public class AvatarSDKController : MonoBehaviour {
         else
         {
             //remove all the headless bodies
-            foreach(GameObject model in GameController.Instance.playerModels)
-            {
-                if (model.GetComponentInChildren<BodyAttachment>())
-                {
-                    //GameController.Instance.playerModels.Remove(model);
-                }
-            }
+            //foreach(GameObject model in GameController.Instance.playerModels)
+            //{
+            //    if (model.GetComponentInChildren<BodyAttachment>())
+            //    {
+            //        //GameController.Instance.playerModels.Remove(model);
+            //    }
+            //}
         }
     }
 
@@ -192,16 +192,16 @@ public class AvatarSDKController : MonoBehaviour {
         meshObject.GetComponent<SkinnedMeshRenderer>().updateWhenOffscreen = true;
 
         //find all the headless bodies that are in the scene
-        foreach (GameObject body in GameController.Instance.playerModels)
-        {
-            if (body.GetComponentInChildren<BodyAttachment>())
-            {
-                //add head to the body
-                body.GetComponentInChildren<BodyAttachment>().AttachHeadToBody(Instantiate(avatarObject));
-                body.GetComponentInChildren<BodyAttachment>().RebuildBindpose();
-                Destroy(avatarObject);
-            }
-        }
+        //foreach (GameObject body in GameController.Instance.playerModels)
+        //{
+        //    if (body.GetComponentInChildren<BodyAttachment>())
+        //    {
+        //        //add head to the body
+        //        body.GetComponentInChildren<BodyAttachment>().AttachHeadToBody(Instantiate(avatarObject));
+        //        body.GetComponentInChildren<BodyAttachment>().RebuildBindpose();
+        //        Destroy(avatarObject);
+        //    }
+        //}
     }
 
     private void OnDestroy()

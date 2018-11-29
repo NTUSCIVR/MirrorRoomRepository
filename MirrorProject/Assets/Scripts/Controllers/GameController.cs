@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 //manage the events that occurs in the application
 public class GameController : MonoBehaviour {
-    
-    public static GameController Instance;
-
     [Tooltip("Place all existing objects of player models in this list to enable swapping")]
     public List<GameObject> playerModels;
     //the current index of the used model
@@ -32,17 +29,17 @@ public class GameController : MonoBehaviour {
 
     private void Awake()
     {
-        Instance = this;
+       
+    }
+
+    // Use this for initialization
+    void Start () {
         //find the steamvr eye and assign it to data collector
         if (DataCollector.Instance != null)
         {
             DataCollector.Instance.user = FindObjectOfType<SteamVR_Camera>().gameObject;
             userID = DataCollector.Instance.dataID;
         }
-    }
-
-    // Use this for initialization
-    void Start () {
         modelIndex = 0;
         playerModels[modelIndex].SetActive(true);
         ScaleModel(playerModels[modelIndex]);
